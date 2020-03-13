@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="题目来源：LeetCode: Best Time to Buy and Sell Stock 系列问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一次遍历解决 Best Time to Buy and Sell Stock 系列问题（附代码）">
+<meta property="og:url" content="http://yoursite.com/2020/03/13/Best-Time-to-Buy-and-Sell-Stock/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目来源：LeetCode: Best Time to Buy and Sell Stock 系列问题">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-13T03:37:41.000Z">
+<meta property="article:modified_time" content="2020-03-13T04:46:02.569Z">
+<meta property="article:author" content="Wedon">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/13/Best-Time-to-Buy-and-Sell-Stock/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>一次遍历解决 Best Time to Buy and Sell Stock 系列问题（附代码） | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/13/Best-Time-to-Buy-and-Sell-Stock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Wedon">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一次遍历解决 Best Time to Buy and Sell Stock 系列问题（附代码）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-13 11:37:41 / Modified: 12:46:02" itemprop="dateCreated datePublished" datetime="2020-03-13T11:37:41+08:00">2020-03-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>题目来源：LeetCode: Best Time to Buy and Sell Stock 系列问题</p>
+<a id="more"></a>
+<h2 id="系列问题描述">系列问题描述</h2>
+<p>给定一个非负整数数组<code>prices</code>，第<span class="math inline">\(i\)</span>项元素代表一张股票在第<span class="math inline">\(i\)</span>天时候的价格。（虽然原题没有清楚说明<code>prices</code>是非负整数数组，但LeetCode给出的测试用例运行结果均需保证其为非负整数数组）</p>
+<p>你可以在任意一天花费与该天股票价格相同的现金买入一张股票。如果你曾经在第<span class="math inline">\(j\)</span>天买入一张股票，你可以在第<span class="math inline">\(k (k &gt;= j)\)</span>天的时候以第<span class="math inline">\(k\)</span>天的价格卖出这张股票。</p>
+<p>买入一张股票然后将在未来将其卖出的过程称为一次交易（transaction，或者称为一次买卖）。</p>
+<p>卖出一张股票的前提是当前已经持有一张股票。买入一张新股票的前提是当前没有持有股票。</p>
+<p>以下问题均需要计算出在给定的限制条件下你能得到的最大利润。你不需要给出针对于给定价格数组的具体方案。</p>
+<h2 id="问题一至多进行一次交易">问题一：至多进行一次交易</h2>
+<p>对应LeetCode问题：121. Best Time to Buy and Sell Stock [<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="noopener">Link</a>]</p>
+<h3 id="思考">思考</h3>
+<p>如果我们在某一天卖出股票，为了保证利润最大化，我们一定是在之前的最低价时候买入这张股票。要获得之前最低价，只需在遍历过程中记录下当前的股票最低价即可。</p>
+<p>之后的问题可以理解为一个动态规划问题：</p>
+<p>首先第<span class="math inline">\(0\)</span>天的最大收益是0。</p>
+<p>对于第<span class="math inline">\(i (i &gt; 0)\)</span>天：</p>
+<p>如果我们知道对于前<span class="math inline">\(i-1\)</span>天我们能获得的最大收益<code>maxprofit</code>以及前<span class="math inline">\(i-1\)</span>天中股票的最低价格<code>minprice</code>，我们可以计算出第<span class="math inline">\(i\)</span>天的最大收益：</p>
+<ul>
+<li>如果我们选择在今天卖出股票，我们能得到的收益是<code>prices[i] - minprice</code>。</li>
+<li>如果我们不在今天卖出股票（包括两种情况：不愿意或者是手上没有股票），我们能得到的最大收益是在前<span class="math inline">\(i-1\)</span>天中的最大收益<code>maxprofit</code>。</li>
+<li>因此我们今天能得到的最大收益为上述两种情况的最大值，即<code>max(maxprofit, prices[i] - minprice)</code>。</li>
+</ul>
+<p>实际上，上文中的<code>minprice</code>也可以认为是前<span class="math inline">\(i\)</span>天中股票的最低价格。因为:</p>
+<ul>
+<li>如果今天是当前股票的最低价格，则我们选择在今天卖出股票的收益是0（因为<code>prices[i] = minprice</code>），也可以理解为我今天买入股票后马上卖出。而<code>maxprofit</code>必定会大于等于0，因此可以得到的最大利润仍然是前<span class="math inline">\(i-1\)</span>天的最大利润。</li>
+<li>如果今天不是当前股票的最低价格，则<code>minprice</code>即为前<span class="math inline">\(i-1\)</span>天的最低价格。</li>
+</ul>
+<h3 id="代码实现">代码实现</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;</span><br><span class="line">        if (prices.size() &lt;&#x3D; 1) return 0;</span><br><span class="line">        int maxprofit&#x3D;0, minprice &#x3D; INT_MAX;</span><br><span class="line">        for (int i&#x3D;0; i &lt; prices.size(); ++i) &#123;</span><br><span class="line">            minprice &#x3D; min(minprice, prices[i]);</span><br><span class="line">            maxprofit &#x3D; max(maxprofit, prices[i] - minprice);</span><br><span class="line">        &#125;</span><br><span class="line">        return maxprofit;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="第二种思路">第二种思路</h3>
+<blockquote>
+<p>思路来自于LeetCode 714题给出的参考解法：[<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/solution/" target="_blank" rel="noopener">Link</a>]</p>
+</blockquote>
+<p>同样是一次遍历解决问题。</p>
+<p>我们记录两个变量：</p>
+<ul>
+<li><p>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上没有股票，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>cash</code>；</p></li>
+<li><p>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上仍然持有股票，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>hold</code>。因为买股票会导致亏本，因此<code>hold</code>在本题中会保证小于等于0。</p></li>
+</ul>
+<p>实际上，在前<span class="math inline">\(i-1\)</span>天中我们能够得到股票的最大利润是<code>cash</code>。因为为了能够得到最大利润，我们一定会卖出手上持有的股票。手上持有股票的目的仅仅是为了以后能够卖出更好的价钱。</p>
+<p>动态规划的思路：</p>
+<p>第<span class="math inline">\(0\)</span>天交易结束后，也就是第<span class="math inline">\(1\)</span>天交易开始前，<code>cash=0</code>，<code>hold=-prices[0]</code>。</p>
+<p>我们要在第<span class="math inline">\(i\)</span>天更新<code>cash</code>和<code>hold</code>。</p>
+<p>先讨论今天交易结束后（并且手上未持有股票时）我们能够得到的最大利润：</p>
+<ul>
+<li>如果我们选择在今天卖出股票，我们能得到的利润是<code>hold + prices[i]</code>；</li>
+<li>如果我们不在今天卖出股票：如果我们手头上有股票，当前最大利润是<code>hold</code>；如果我们手头上没有股票，当前最大利润是<code>cash</code>；</li>
+<li>所以今天交易结束后我们能够算出最大利润为<code>max(hold + prices[i], hold, cash)</code>。这将成为新的<code>cash</code>。</li>
+</ul>
+<p>再讨论今天交易结束后（并且手上持有股票时）我们能够得到的最大利润：</p>
+<ul>
+<li>如果手上持有的股票是今天购买的，则我们得到的利润是<code>0 - prices[i]</code>（因为有只能交易一次的限制，所以在购买股票之前我们不会有任何的利润）；</li>
+<li>如果手上持有的股票是之前购买的，则当前最大利润是<code>hold</code>。</li>
+<li>所以今天交易结束后我们能够算出最大利润为<code>max(0 - prices[i], hold)</code>。这将成为新的<code>hold</code>。</li>
+</ul>
+<p>在最后一天结束后得到的<code>cash</code>即为我们能够得到的最大利润（因为为了保证最大利润，在最后一天必定不会留有股票）。</p>
+<p>在之后的不同问题变体中我们可以看到均可以使用此思路来解决。</p>
+<h3 id="代码">代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;</span><br><span class="line">        if (prices.size() &lt;&#x3D; 1) return 0;</span><br><span class="line">        int cash &#x3D; 0, hold &#x3D; -prices[0];</span><br><span class="line">        for (int i&#x3D;1; i &lt; prices.size(); ++i) &#123;</span><br><span class="line">            cash &#x3D; max(cash, hold + prices[i]);</span><br><span class="line">            hold &#x3D; max(hold, -prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return cash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="问题二可进行无限次交易">问题二：可进行无限次交易</h2>
+<p>对应LeetCode问题：122. Best Time to Buy and Sell Stock II [<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/" target="_blank" rel="noopener">Link</a>]</p>
+<h3 id="基于问题一思路">基于问题一思路</h3>
+<p>我们记录两个变量：</p>
+<ul>
+<li>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上没有股票，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>cash</code>；</li>
+<li>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上仍然持有股票，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>hold</code>。</li>
+</ul>
+<p>同理，在前<span class="math inline">\(i-1\)</span>天中我们能够得出最大总利润是<code>cash</code>。</p>
+<p>动态规划的思路：</p>
+<p>第<span class="math inline">\(0\)</span>天交易结束后，也就是第<span class="math inline">\(1\)</span>天交易开始前，<code>cash=0</code>，<code>hold=-prices[0]</code>。</p>
+<p>我们要在第<span class="math inline">\(i\)</span>天更新<code>cash</code>和<code>hold</code>。</p>
+<p>先讨论今天交易结束后（并且手上未持有股票时）我们能够得到的最大利润：</p>
+<ul>
+<li>如果我们选择在今天卖出股票，我们能得到的利润是<code>hold + prices[i]</code>；</li>
+<li>如果我们不在今天卖出股票：如果我们手头上有股票，当前最大利润是<code>hold</code>；如果我们手头上没有股票，当前最大利润是<code>cash</code>；</li>
+<li>所以今天交易结束后我们能够算出最大利润为<code>max(hold + prices[i], hold, cash)</code>。这将成为新的<code>cash</code>。</li>
+</ul>
+<p>再讨论今天交易结束后（并且手上持有股票时）我们能够得到的最大利润：</p>
+<ul>
+<li>由于我们先更新<code>cash</code>后更新<code>hold</code>，所以<code>hold</code>所需的昨天的<code>cash</code>信息会被新的<code>cash</code>覆盖。因此我们将昨天及之前的最大利润称为<code>cash_yesterday</code>，而今日交易完成的<code>cash</code>称为<code>cash_today</code>。</li>
+<li>如果手上持有的股票是之前购买的，则当前最大利润是<code>hold</code>。</li>
+<li>如果手上持有的股票是今天购买的，我们得到的利润是<code>cash_yesterday - prices[i]</code>（因为购买股票前我们必须保证手上没有股票）。</li>
+<li>所以今天交易结束后我们能够算出最大利润为<code>max(hold, cash_yesterday - prices[i])</code>。这将成为新的<code>hold</code>。</li>
+<li>实际上，我们可以将<code>cash_yesterday</code>替换为<code>cash_today</code>。
+<ul>
+<li>如果在今天买入股票不会导致收益最大化，则<code>cash_today = cash_yesterday</code>，因此<code>hold = max(hold, cash_today - prices[i])</code>。</li>
+<li><p>如果在今天买入股票会导致收益最大化，则<code>cash_today = hold + prices[i] &gt;= cash_yesterday</code>，因此</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  max(hold, cash_yesterday - prices[i])</span><br><span class="line">&#x3D; max(cash_today - prices[i], cash_yesterday - prices[i])</span><br><span class="line">&#x3D; max(cash_today, cash_yesterday) - prices[i]</span><br><span class="line">&#x3D; cash_today - prices[i]</span><br><span class="line">&#x3D; hold</span><br><span class="line">&#x3D; max(hold, hold)</span><br><span class="line">&#x3D; max(hold, cash_today - prices[i])</span><br></pre></td></tr></table></figure></p></li>
+</ul></li>
+</ul>
+<p>在最后一天结束后得到的<code>cash</code>即为我们能够得到的最大利润（因为为了保证最大利润，在最后一天必定不会留有股票）。</p>
+<h3 id="代码-1">代码</h3>
+<p>省略说明。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;</span><br><span class="line">        if (prices.size() &lt;&#x3D; 1) return 0;</span><br><span class="line">        int cash &#x3D; 0, hold &#x3D; -prices[0]; </span><br><span class="line">        for (int i &#x3D; 1; i &lt; prices.size(); ++i) &#123;</span><br><span class="line">            cash &#x3D; max(cash, hold + prices[i]);</span><br><span class="line">            hold &#x3D; max(hold, cash - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return cash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="另一种思路的代码">另一种思路的代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;</span><br><span class="line">        int max_profit &#x3D; 0;</span><br><span class="line">        for (int i &#x3D; 1; i &lt; prices.size(); ++i)</span><br><span class="line">            max_profit +&#x3D; max(prices[i]-prices[i-1], 0);</span><br><span class="line">        return max_profit;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="问题三可进行无限次交易但每次卖出需缴纳固定非负整数费用">问题三：可进行无限次交易但每次卖出需缴纳固定非负整数费用</h2>
+<p>对应LeetCode问题：714. Best Time to Buy and Sell Stock with Transaction Fee [<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/" target="_blank" rel="noopener">Link</a>]</p>
+<p>原题为每次交易（transaction）均需缴纳固定非负整数费用。由于得到最后结果时手上必不会持有股票，因此也可视为卖出需缴纳固定费用，买入不需要缴纳费用。</p>
+<h3 id="基于问题二思路">基于问题二思路</h3>
+<p>与问题二相似，因此重复地方不进行详细解释。</p>
+<p>我们记录两个变量：</p>
+<ul>
+<li>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上没有股票，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>cash</code>；</li>
+<li>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上仍然持有股票，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>hold</code>。</li>
+</ul>
+<p>第<span class="math inline">\(0\)</span>天交易结束后，也就是第<span class="math inline">\(1\)</span>天交易开始前，<code>cash=0</code>，<code>hold=-prices[0]</code>。</p>
+<p>由于卖出需要缴纳费用，因此<code>cash = max(cash, hold + prices[i] - fee)</code>。</p>
+<p>讨论<code>hold</code>的更新（与问题二类似）：</p>
+<ul>
+<li>由于我们先更新<code>cash</code>后更新<code>hold</code>，所以<code>hold</code>所需的昨天的<code>cash</code>信息会被新的<code>cash</code>覆盖。因此我们将昨天及之前的最大利润称为<code>cash_yesterday</code>，而今日交易完成的<code>cash</code>称为<code>cash_today</code>。</li>
+<li>如果手上持有的股票是之前购买的，则当前最大利润是<code>hold</code>。</li>
+<li>如果手上持有的股票是今天购买的，我们得到的利润是<code>cash_yesterday - prices[i]</code>（因为购买股票前我们必须保证手上没有股票）。</li>
+<li>所以今天交易结束后我们能够算出最大利润为<code>max(hold, cash_yesterday - prices[i])</code>。这将成为新的<code>hold</code>。</li>
+<li>实际上，我们可以将<code>cash_yesterday</code>替换为<code>cash_today</code>。
+<ul>
+<li>如果在今天买入股票不会导致收益最大化，则<code>cash_today = cash_yesterday</code>，因此<code>hold = max(hold, cash_today - prices[i])</code>。</li>
+<li><p>如果在今天买入股票会导致收益最大化，则<code>cash_today = hold + prices[i] - fee &gt;= cash_yesterday</code>，因此</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  max(hold, cash_yesterday - prices[i])</span><br><span class="line">&#x3D; max(cash_today + fee - prices[i], cash_yesterday - prices[i])</span><br><span class="line">&#x3D; max(cash_today + fee, cash_yesterday) - prices[i]</span><br><span class="line">&#x3D; cash_today + fee - prices[i]</span><br><span class="line">&#x3D; hold</span><br><span class="line">&#x3D; max(hold, hold - fee)</span><br><span class="line">&#x3D; max(hold, cash_today - prices[i])</span><br></pre></td></tr></table></figure></p></li>
+</ul></li>
+</ul>
+<h3 id="代码-2">代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxProfit(vector&lt;int&gt;&amp; prices, int fee) &#123;</span><br><span class="line">        if (prices.size() &lt;&#x3D; 1) return 0;</span><br><span class="line">        int cash &#x3D; 0, hold &#x3D; -prices[0]; </span><br><span class="line">        for (int i &#x3D; 1; i &lt; prices.size(); ++i) &#123;</span><br><span class="line">            cash &#x3D; max(cash, hold + prices[i] - fee);</span><br><span class="line">            hold &#x3D; max(hold, cash - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return cash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="问题四至多进行两次交易">问题四：至多进行两次交易</h2>
+<p>对应LeetCode问题：123. Best Time to Buy and Sell Stock III [<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/" target="_blank" rel="noopener">Link</a>]</p>
+<h3 id="基于问题二思路-1">基于问题二思路</h3>
+<p>我们将买入但暂不卖出的行为也称为一次交易。</p>
+<p>我们记录四个变量：</p>
+<ul>
+<li>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上没有股票，同时之前已经进行了至多一次交易，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>cash_once</code>；</li>
+<li>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上仍然持有股票，同时之前已经进行了至多一次交易，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>hold_once</code>;</li>
+<li>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上没有股票，同时之前已经进行了至多两次交易，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>cash_twice</code>；</li>
+<li>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上仍然持有股票，同时之前已经进行了至多两次交易，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>hold_twice</code>。</li>
+</ul>
+<p>易得遍历完成后得到<code>cash_twice</code>即为我们所需的答案。</p>
+<p>第<span class="math inline">\(0\)</span>天交易结束后，也就是第<span class="math inline">\(1\)</span>天交易开始前，<code>cash_once=0</code>，<code>hold_once=-prices[0]</code>，<code>cash_twice=0</code>，<code>hold_twice=-prices[0]</code>。</p>
+<p>对于从第一天开始的每一天，讨论<code>cash</code>和<code>hold</code>的更新：</p>
+<ul>
+<li><code>cash_once</code>和<code>hold_once</code>的求解等同于最多只能进行一次交易。</li>
+<li><code>cash_once = max(cash_once, hold_once + prices[i])</code></li>
+<li><code>hold_once = max(hold_once, -prices[i])</code></li>
+<li><code>cash_twice = max(cash_twice, hold_twice + prices[i])</code>（与<code>cash_once</code>同理，如果手上持有股票，观察卖出是否能够获得更大利润）</li>
+<li>对于<code>hold_twice</code>：
+<ul>
+<li>如果手上持有的股票是之前购买的，则当前最大利润是<code>hold_twice</code>。</li>
+<li>如果手上持有的股票是今天购买的，我们得到的利润是<code>cash_once - prices[i]</code>（根据对问题二的讨论，用<code>cash_once</code>替代<code>cash_once_yesterday</code>）。</li>
+<li>为什么不是<code>cash_twice</code>而是<code>cash_once</code>？根据已买股票次数分为两种情况讨论：
+<ul>
+<li>在决定是否买这一张股票之前从来没有买过股票，当前的无股票最大利润<code>cash_once</code>减去今天股票价格即为持有股票时的最大利润。</li>
+<li>在决定是否买这一张股票之前已经买过并卖出一张股票，因为只有两次购买股票机会（而现在已经用过一次，只剩下一次），因此只能使用<code>cash_once</code>而不是<code>cash_twice</code>。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="代码-3">代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;</span><br><span class="line">        if (prices.size() &lt; 2) return 0;</span><br><span class="line">        int cash_once&#x3D;0, cash_twice&#x3D;0, </span><br><span class="line">            hold_once&#x3D;-prices[0], hold_twice&#x3D;-prices[0];</span><br><span class="line">        for (int i&#x3D;1; i &lt; prices.size(); ++i) &#123;</span><br><span class="line">            cash_once &#x3D; max(cash_once, hold_once + prices[i]);</span><br><span class="line">            hold_once &#x3D; max(hold_once, -prices[i]);</span><br><span class="line">            cash_twice &#x3D; max(cash_twice, hold_twice + prices[i]);</span><br><span class="line">            hold_twice &#x3D; max(hold_twice, cash_once - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return cash_twice;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="问题五至多进行k次交易k-0">问题五：至多进行k次交易（k &gt;= 0）</h2>
+<p>对应LeetCode问题：188. Best Time to Buy and Sell Stock IV [<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/" target="_blank" rel="noopener">Link</a>]</p>
+<h3 id="基于问题四思路">基于问题四思路</h3>
+<p>记录进行<span class="math inline">\(0-k\)</span>次交易的<code>cash</code>和<code>hold</code>。注意<code>hold</code>需要使用少一次交易的<code>cash</code>。</p>
+<h3 id="代码-4">代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxProfit(int k, vector&lt;int&gt;&amp; prices) &#123;</span><br><span class="line">        if (k &lt;&#x3D; 0) return 0;</span><br><span class="line">        int prices_len &#x3D; prices.size();</span><br><span class="line">        if (prices_len &lt; 2) return 0;</span><br><span class="line">        if (k &gt;&#x3D; prices_len &#x2F; 2) &#123;  &#x2F;&#x2F; same as doing arbitrary transactions</span><br><span class="line">            int ans &#x3D; 0;</span><br><span class="line">            for (int i&#x3D;1; i &lt; prices_len; ++i) &#123;</span><br><span class="line">                ans +&#x3D; max(prices[i] - prices[i-1], 0);</span><br><span class="line">            &#125;</span><br><span class="line">            return ans;</span><br><span class="line">        &#125;</span><br><span class="line">        int cash[k+1], hold[k+1];</span><br><span class="line">        for (int i&#x3D;0; i &lt; k+1; ++i) &#123;</span><br><span class="line">            cash[i] &#x3D; 0;</span><br><span class="line">            hold[i] &#x3D; -prices[0];</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i&#x3D;1; i &lt; prices_len; ++i) &#123;</span><br><span class="line">            for (int j&#x3D;1; j &lt; k+1; ++j) &#123;</span><br><span class="line">                cash[j] &#x3D; max(cash[j], hold[j] + prices[i]);</span><br><span class="line">                hold[j] &#x3D; max(hold[j], cash[j-1] - prices[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return cash[k];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="问题六可进行无限次交易但卖出股票后的下一天禁止买入新股票">问题六：可进行无限次交易但卖出股票后的下一天禁止买入新股票</h2>
+<p>对应LeetCode问题：309. Best Time to Buy and Sell Stock with Cooldown [<a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/" target="_blank" rel="noopener">Link</a>]</p>
+<h3 id="基于问题二思路-2">基于问题二思路</h3>
+<p>我们记录三个变量：</p>
+<ul>
+<li>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上没有股票，同时我们在昨天没有卖出股票，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>cash_not_sell_yesterday</code>；</li>
+<li>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上没有股票，同时我们在昨天卖出了股票，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>cash_sell_yesterday</code>（因此今天是冷却期，不能在今天买入新股票）；</li>
+<li>如果在第<span class="math inline">\(i\)</span>天交易开始前我们手上仍然持有股票，在前<span class="math inline">\(i-1\)</span>天中我们能够得到的最大利润<code>hold</code>。</li>
+</ul>
+<p>可得在前<span class="math inline">\(i-1\)</span>天中我们能够得出最大总利润是<code>max(cash_sell_yesterday, cash_not_sell_yesterday)</code>。</p>
+<p>接下来讨论<code>cash</code>和<code>hold</code>的更新：</p>
+<p>第<span class="math inline">\(0\)</span>天交易结束后，也就是第<span class="math inline">\(1\)</span>天交易开始前，<code>cash_sell_yesterday=cash_not_sell_yesterday=0</code>，<code>hold=-prices[0]</code>。</p>
+<p>我们要在第<span class="math inline">\(i\)</span>天更新<code>cash_sell_yesterday</code>，<code>cash_not_sell_yesterday</code>和<code>hold</code>。</p>
+<ul>
+<li>易得<code>cash_sell_yesterday = hold + prices[i]</code>。</li>
+<li><code>hold = max(hold, cash_not_sell_yesterday - prices[i])</code>。如果昨天卖出了股票今天便不能购买，因此不使用<code>cash_sell_yesterday</code>。</li>
+<li><code>cash_not_sell_yesterday</code>为昨天的（而不是今天更新的）<code>cash_sell_yesterday</code>和<code>cash_not_sell_yesterday</code>的最大值。因为即使今天卖出了股票，但由于变量的前提条件是没有在“昨天”卖出股票，因此<code>cash_not_sell_yesterday</code>不会被更新。</li>
+</ul>
+<h3 id="代码-5">代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;</span><br><span class="line">        if (prices.size() &lt; 2) return 0;</span><br><span class="line">        int cash_sell_yesterday &#x3D; 0, </span><br><span class="line">            cash_not_sell_yesterday &#x3D; 0, </span><br><span class="line">            hold &#x3D; -prices[0];</span><br><span class="line">        int max_cash;</span><br><span class="line">        for (int i&#x3D;1; i &lt; prices.size(); ++i) &#123;</span><br><span class="line">            max_cash &#x3D; max(cash_sell_yesterday, cash_not_sell_yesterday);</span><br><span class="line">            cash_sell_yesterday &#x3D; hold + prices[i];</span><br><span class="line">            hold &#x3D; max(hold, cash_not_sell_yesterday - prices[i]);</span><br><span class="line">            cash_not_sell_yesterday &#x3D; max_cash;</span><br><span class="line">        &#125;</span><br><span class="line">        return max(cash_sell_yesterday, cash_not_sell_yesterday);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/13/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#系列问题描述"><span class="nav-number">1.</span> <span class="nav-text">系列问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题一至多进行一次交易"><span class="nav-number">2.</span> <span class="nav-text">问题一：至多进行一次交易</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思考"><span class="nav-number">2.1.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">2.2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二种思路"><span class="nav-number">2.3.</span> <span class="nav-text">第二种思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.4.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题二可进行无限次交易"><span class="nav-number">3.</span> <span class="nav-text">问题二：可进行无限次交易</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于问题一思路"><span class="nav-number">3.1.</span> <span class="nav-text">基于问题一思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-1"><span class="nav-number">3.2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#另一种思路的代码"><span class="nav-number">3.3.</span> <span class="nav-text">另一种思路的代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题三可进行无限次交易但每次卖出需缴纳固定非负整数费用"><span class="nav-number">4.</span> <span class="nav-text">问题三：可进行无限次交易但每次卖出需缴纳固定非负整数费用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于问题二思路"><span class="nav-number">4.1.</span> <span class="nav-text">基于问题二思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-2"><span class="nav-number">4.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题四至多进行两次交易"><span class="nav-number">5.</span> <span class="nav-text">问题四：至多进行两次交易</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于问题二思路-1"><span class="nav-number">5.1.</span> <span class="nav-text">基于问题二思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-3"><span class="nav-number">5.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题五至多进行k次交易k-0"><span class="nav-number">6.</span> <span class="nav-text">问题五：至多进行k次交易（k &gt;&#x3D; 0）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于问题四思路"><span class="nav-number">6.1.</span> <span class="nav-text">基于问题四思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-4"><span class="nav-number">6.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题六可进行无限次交易但卖出股票后的下一天禁止买入新股票"><span class="nav-number">7.</span> <span class="nav-text">问题六：可进行无限次交易但卖出股票后的下一天禁止买入新股票</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于问题二思路-2"><span class="nav-number">7.1.</span> <span class="nav-text">基于问题二思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-5"><span class="nav-number">7.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Wedon</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wedonsjtu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wedonsjtu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wedon</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
