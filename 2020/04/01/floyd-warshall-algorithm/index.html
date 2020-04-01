@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+  <meta name="description" content="Solution for all-pair shortest path problem in Graph.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2020/03/13/hello-world/index.html">
+<meta property="og:title" content="Floyd-Warshall Algorithm - Shortest Path in Graph">
+<meta property="og:url" content="http://yoursite.com/2020/04/01/floyd-warshall-algorithm/index.html">
 <meta property="og:site_name" content="Hello">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta property="og:description" content="Solution for all-pair shortest path problem in Graph.">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-03-13T03:26:00.437Z">
-<meta property="article:modified_time" content="2020-03-13T03:36:44.121Z">
+<meta property="article:published_time" content="2020-04-01T12:49:33.000Z">
+<meta property="article:modified_time" content="2020-04-01T14:33:04.503Z">
 <meta property="article:author" content="Wedon">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/03/13/hello-world/">
+<link rel="canonical" href="http://yoursite.com/2020/04/01/floyd-warshall-algorithm/">
 
 
 <script id="page-configurations">
@@ -44,7 +44,7 @@
   };
 </script>
 
-  <title>Hello World | Hello</title>
+  <title>Floyd-Warshall Algorithm - Shortest Path in Graph | Hello</title>
   
 
 
@@ -153,7 +153,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/13/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/01/floyd-warshall-algorithm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -166,7 +166,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          Floyd-Warshall Algorithm - Shortest Path in Graph
         </h1>
 
         <div class="post-meta">
@@ -177,7 +177,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-03-13 11:26 / Modified: 11:36" itemprop="dateCreated datePublished" datetime="2020-03-13T11:26:00+08:00">2020-03-13</time>
+              <time title="Created: 2020-04-01 20:49 / Modified: 22:33" itemprop="dateCreated datePublished" datetime="2020-04-01T20:49:33+08:00">2020-04-01</time>
             </span>
 
           
@@ -191,21 +191,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+        <p>Solution for all-pair shortest path problem in Graph.</p>
 <a id="more"></a>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h2 id="problem-description">Problem Description</h2>
+<blockquote>
+<p>Wikipedia: <a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm" target="_blank" rel="noopener">Floyd–Warshall algorithm</a></p>
+</blockquote>
+<p>In a graph, find the minimum distance for every pair of nodes. The weights of edges can be positive or negative.</p>
+<h2 id="algorithm">Algorithm</h2>
+<ol type="1">
+<li>Let <code>V</code> be the set of vertexes and <code>E</code> be the set of edges. <code>V_num</code> is the sizes of <code>V</code>. For every edge <code>(u, v)</code> in <code>E</code>, its weight is <code>weight(u, v)</code>.</li>
+<li>define a matrix <code>dist[V_num][V_num]</code>, whose values are initialized with &quot;positive infinity&quot; (You can use <code>INT_MAX</code> in C++).</li>
+<li>For every edge <code>(u, v)</code> in <code>E</code>, set <code>dist[u][v] = weight(u, v)</code>.</li>
+<li>For every node <code>v</code>, set <code>dist[v][v] = 0</code>.</li>
+<li>Do the following operations: <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> k=<span class="number">0</span>; k &lt; V_num; ++k)  <span class="comment">// relay node</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; V_num; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j &lt; V_num; ++j)</span><br><span class="line">            dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);</span><br></pre></td></tr></table></figure></li>
+<li>If there is no negative cycle, the minimum distance from <code>i</code> to <code>j</code> is <code>dist[i][j]</code>.</li>
+</ol>
+<p>Time Complexity: <span class="math inline">\(\Theta ({|V|}^3)\)</span>; Space Complexity: <span class="math inline">\(\Theta ({|V|}^2)\)</span>.</p>
+<h2 id="detection-of-negative-cycles">Detection of negative cycles</h2>
+<p>We can use Floyd-Warshall algorithm to find the negative cycles.</p>
+<p>Before setting <code>dist[v][v] = 0</code>, if <code>dist[v][v] &lt; 0</code>, there is a negative self-cycle.</p>
+<p>After finishing the algorithm, for any <code>i</code>, if <code>dist[i][i] &lt; 0</code>, there is a negative cycle from <code>i</code> to <code>i</code>.</p>
 
     </div>
 
@@ -220,11 +226,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/03/13/Best-Time-to-Buy-and-Sell-Stock/" rel="next" title="一次遍历解决 Best Time to Buy and Sell Stock 系列问题（附代码）">
-      一次遍历解决 Best Time to Buy and Sell Stock 系列问题（附代码） <i class="fa fa-chevron-right"></i>
+    <a href="/2020/03/31/solution-of-validating-binary-tree-nodes/" rel="prev" title="Solution of Validating Binary Tree Nodes">
+      <i class="fa fa-chevron-left"></i> Solution of Validating Binary Tree Nodes
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -284,7 +290,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#quick-start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#problem-description"><span class="nav-number">1.</span> <span class="nav-text">Problem Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#algorithm"><span class="nav-number">2.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#detection-of-negative-cycles"><span class="nav-number">3.</span> <span class="nav-text">Detection of negative cycles</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -298,14 +304,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
   </nav>
@@ -397,6 +403,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
